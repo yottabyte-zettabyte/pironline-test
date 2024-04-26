@@ -35,4 +35,7 @@ public class Company extends Auditable {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "inn")
+    private String inn;
 }
