@@ -5,7 +5,7 @@ CREATE TABLE companies (
     short_name VARCHAR(100) NOT NULL,
     long_name VARCHAR(100) NOT NULL,
     description VARCHAR(1000),
-    inn VARCHAR(100) NOT NULL,
+    inn VARCHAR(20) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT now(),
     updated_at TIMESTAMP NOT NULL DEFAULT now()
 );

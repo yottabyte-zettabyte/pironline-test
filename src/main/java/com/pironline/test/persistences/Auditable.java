@@ -1,4 +1,4 @@
-package com.pironline.test.persistence;
+package com.pironline.test.persistences;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
@@ -18,9 +18,9 @@ public abstract class Auditable {
 
     @CreatedDate
     @Column(name = "created_at", columnDefinition = "TIMESTAMP", updatable = false)
-    protected LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
-    protected LocalDateTime updatedAt;
+    private LocalDateTime updatedAt;
 }

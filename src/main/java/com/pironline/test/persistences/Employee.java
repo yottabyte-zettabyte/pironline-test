@@ -1,4 +1,4 @@
-package com.pironline.test.persistence;
+package com.pironline.test.persistences;
 
 import com.pironline.test.enums.Gender;
 import jakarta.persistence.Column;

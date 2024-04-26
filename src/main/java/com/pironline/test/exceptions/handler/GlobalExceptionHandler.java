@@ -45,8 +45,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         log.error("Error while validating input data: {}", validationErrors);
-        String localizedErrorMessage = messageSource.getMessage(ErrorCode.INVALID_DATA.getValue());
-        return new ResponseEntity(new ErrorMessage(ErrorCode.INVALID_DATA, localizedErrorMessage), HttpStatus.BAD_REQUEST);
+        String localizedErrorMessage = messageSource.getMessage(ErrorCode.ERROR_INVALID_DATA.getValue());
+        return new ResponseEntity(new ErrorMessage(ErrorCode.ERROR_INVALID_DATA, localizedErrorMessage), HttpStatus.BAD_REQUEST);
     }
 
     @Override

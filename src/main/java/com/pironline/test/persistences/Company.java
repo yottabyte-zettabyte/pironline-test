@@ -1,4 +1,4 @@
-package com.pironline.test.persistence;
+package com.pironline.test.persistences;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
