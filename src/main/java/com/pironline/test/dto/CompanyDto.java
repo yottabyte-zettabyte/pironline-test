@@ -3,8 +3,6 @@ package com.pironline.test.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,10 +12,6 @@ import lombok.ToString;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CompanyDto {
-
-    private UUID id;
-
-    private long version;
 
     @NotBlank(message = "Field 'shortName' should not be empty")
     @Size(max = 100, message = "Size of 'shortName' field should not be bigger than 100")
@@ -32,6 +26,4 @@ public class CompanyDto {
     @NotBlank(message = "Field 'inn' should not be empty")
     @Size(max = 20, message = "Size of 'inn' field should not be bigger than 20")
     private String inn;
-
-    private LocalDateTime createdAt;
 }

@@ -3,6 +3,7 @@ package com.pironline.test.exceptions.handler;
 import com.pironline.test.exceptions.BadRequestException;
 import com.pironline.test.exceptions.GenericException;
 import com.pironline.test.exceptions.NotFoundException;
+import com.pironline.test.exceptions.OptimisticLockException;
 import com.pironline.test.locale.LocalizedMessageSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         log.error("Error while validating input data: {}", validationErrors);
-        String localizedErrorMessage = messageSource.getMessage(ErrorCode.ERROR_INVALID_DATA.getValue());
+        String localizedErrorMessage = messageSource.getMessage(ErrorCode.ERROR_INVALID_DATA.getValue(), new Object[] {validationErrors.toString()});
         return new ResponseEntity(new ErrorMessage(ErrorCode.ERROR_INVALID_DATA, localizedErrorMessage), HttpStatus.BAD_REQUEST);
     }
 
@@ -75,6 +76,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorMessage handleException(BadRequestException ex) {
+        return createErrorMessage(ex);
+    }
+
+    @ExceptionHandler(value = OptimisticLockException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorMessage handleException(OptimisticLockException ex) {
         return createErrorMessage(ex);
     }
 

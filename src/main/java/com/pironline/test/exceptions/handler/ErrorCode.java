@@ -28,16 +28,22 @@ public enum ErrorCode {
             return "error.invalid_data";
         }
     },
+    ERROR_GENERIC {
+        @Override
+        public String getValue() {
+            return "error.generic";
+        }
+    },
     ERROR_NOT_FOUND {
         @Override
         public String getValue() {
             return "error.not_found";
         }
     },
-    ERROR_GENERIC {
+    ERROR_OPTIMISTIC_LOCK {
         @Override
         public String getValue() {
-            return "error.generic";
+            return "error.optimistic_lock";
         }
     };
 
