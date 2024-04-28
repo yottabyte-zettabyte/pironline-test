@@ -1,6 +1,8 @@
 package com.pironline.test.service.txn;
 
 import com.pironline.test.dto.EmployeePatchInputDto;
+import com.pironline.test.exceptions.OptimisticLockException;
+import com.pironline.test.exceptions.handler.ErrorCode;
 import com.pironline.test.persistences.Employee;
 import com.pironline.test.repositories.EmployeeRepository;
 import java.time.LocalDate;
@@ -29,6 +31,10 @@ public class EmployeeServiceTxn {
     @Transactional
     public Employee update(UUID employeeId, EmployeePatchInputDto inputDto) {
         Employee employee = employeeRepository.get(employeeId);
+        if (employee.getVersion() != inputDto.getVersion()) {
+            throw new OptimisticLockException(ErrorCode.ERROR_OPTIMISTIC_LOCK, new Object[] {"Employee", employeeId.toString()});
+        }
+
         if (inputDto.getNewCompanyId() != null) {
             employee.setCompanyId(inputDto.getNewCompanyId());
         }

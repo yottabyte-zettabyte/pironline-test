@@ -6,8 +6,6 @@ import com.pironline.test.dto.EmployeePatchInputDto;
 import com.pironline.test.service.EmployeeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -50,16 +48,17 @@ public class EmployeeController {
 
     @PatchMapping("/{employeeId}/leave")
     public ResponseEntity<EmployeeFullDto> leaveEmployee(@PathVariable(name = "employeeId", required = true) @NotNull UUID employeeId,
-                                                         @RequestBody @NotNull EmployeePatchInputDto requestBody) {
-        EmployeeFullDto employee = employeeService.leave(employeeId, requestBody.getLeaveDate());
+                                                         @RequestBody @Valid EmployeePatchInputDto requestBody) {
+        EmployeeFullDto employee = employeeService.leave(employeeId, requestBody.getVersion(), requestBody.getLeaveDate());
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @PatchMapping("/{employeeId}/new/title")
     public ResponseEntity<EmployeeFullDto> changeTitle(@PathVariable(name = "employeeId", required = true) @NotNull UUID employeeId,
-                                                         @RequestBody @NotNull EmployeePatchInputDto requestBody) {
+                                                         @RequestBody @Valid EmployeePatchInputDto requestBody) {
         EmployeeFullDto employee = employeeService.changeTitle(
                 employeeId,
+                requestBody.getVersion(),
                 requestBody.getNewTitleId(),
                 requestBody.getStartDate(),
                 requestBody.getLeaveDate(),
@@ -69,9 +68,10 @@ public class EmployeeController {
 
     @PatchMapping("/{employeeId}/new/company")
     public ResponseEntity<EmployeeFullDto> changeCompany(@PathVariable(name = "employeeId", required = true) @NotNull UUID employeeId,
-                                                         @RequestBody @NotNull EmployeePatchInputDto requestBody) {
+                                                         @RequestBody @Valid EmployeePatchInputDto requestBody) {
         EmployeeFullDto employee = employeeService.changeCompany(
                 employeeId,
+                requestBody.getVersion(),
                 requestBody.getNewCompanyId(),
                 requestBody.getNewTitleId(),
                 requestBody.getStartDate(),

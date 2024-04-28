@@ -78,19 +78,14 @@ public class EmployeeService {
         }
     }
 
-    public EmployeeFullDto leave(UUID employeeId, LocalDate leaveDate) {
+    public EmployeeFullDto leave(UUID employeeId, long currentVersion, LocalDate leaveDate) {
         if (employeeId == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_PARAMS);
         }
 
         try {
-            EmployeePatchInputDto inputDto = EmployeePatchInputDto
-                    .builder()
-                    .leaveDate(Objects.nonNull(leaveDate) ? leaveDate : LocalDate.now(clock))
-                    .build();
-
-            Employee employee = employeeServiceTxn.update(employeeId, inputDto);
-            return employeeMapper.entityToFullDto(employee);
+            Employee updatedEmployee = processLeaveTransaction(employeeId, currentVersion, leaveDate);
+            return employeeMapper.entityToFullDto(updatedEmployee);
         }
         catch (final Exception ex) {
             handleExceptionWithOptimisticLock(employeeId, ex);
@@ -98,7 +93,8 @@ public class EmployeeService {
         }
     }
 
-    public EmployeeFullDto changeTitle(UUID employeeId, Integer newTitleId, LocalDate startDate, LocalDate leaveDate, BigDecimal newSalaryAmount) {
+    public EmployeeFullDto changeTitle(UUID employeeId, long currentVersion, Integer newTitleId,
+                                       LocalDate startDate, LocalDate leaveDate, BigDecimal newSalaryAmount) {
         if (employeeId == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_PARAMS);
         }
@@ -109,17 +105,18 @@ public class EmployeeService {
         }
 
         try {
-            processLeaveTransaction(employeeId, leaveDate);
+            Employee updatedEmployee = processLeaveTransaction(employeeId, currentVersion, leaveDate);
 
-            EmployeePatchInputDto inputDto = EmployeePatchInputDto
+            EmployeePatchInputDto updateDto = EmployeePatchInputDto
                     .builder()
+                    .version(updatedEmployee.getVersion())
                     .newTitleId(newTitleId)
                     .startDate(Objects.nonNull(startDate) ? startDate : LocalDate.now(clock))
                     .leaveDate(LocalDate.MIN)
                     .salaryAmount(newSalaryAmount)
                     .build();
-            Employee employee = employeeServiceTxn.update(employeeId, inputDto);
-            return employeeMapper.entityToFullDto(employee);
+            updatedEmployee = employeeServiceTxn.update(employeeId, updateDto);
+            return employeeMapper.entityToFullDto(updatedEmployee);
         }
         catch (final Exception ex) {
             handleExceptionWithOptimisticLock(employeeId, ex);
@@ -127,7 +124,7 @@ public class EmployeeService {
         }
     }
 
-    public EmployeeFullDto changeCompany(UUID employeeId, UUID newCompanyId, Integer newTitleId,
+    public EmployeeFullDto changeCompany(UUID employeeId, long currentVersion, UUID newCompanyId, Integer newTitleId,
                                          LocalDate startDate, LocalDate leaveDate, BigDecimal newSalaryAmount) {
         if (employeeId == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_PARAMS);
@@ -143,18 +140,19 @@ public class EmployeeService {
         }
 
         try {
-            processLeaveTransaction(employeeId, leaveDate);
+            Employee updatedEmployee = processLeaveTransaction(employeeId, currentVersion, leaveDate);
 
             EmployeePatchInputDto inputDto = EmployeePatchInputDto
                     .builder()
+                    .version(updatedEmployee.getVersion())
                     .newCompanyId(newCompanyId)
                     .newTitleId(newTitleId)
                     .startDate(Objects.nonNull(startDate) ? startDate : LocalDate.now(clock))
                     .leaveDate(LocalDate.MIN)
                     .salaryAmount(newSalaryAmount)
                     .build();
-            Employee employee = employeeServiceTxn.update(employeeId, inputDto);
-            return employeeMapper.entityToFullDto(employee);
+            updatedEmployee = employeeServiceTxn.update(employeeId, inputDto);
+            return employeeMapper.entityToFullDto(updatedEmployee);
         }
         catch (final Exception ex) {
             handleExceptionWithOptimisticLock(employeeId, ex);
@@ -162,12 +160,13 @@ public class EmployeeService {
         }
     }
 
-    private void processLeaveTransaction(UUID employeeId, LocalDate leaveDate) {
+    private Employee processLeaveTransaction(UUID employeeId, long currentVersion, LocalDate leaveDate) {
         EmployeePatchInputDto inputDto = EmployeePatchInputDto
-                    .builder()
-                    .leaveDate(Objects.nonNull(leaveDate) ? leaveDate : LocalDate.now(clock))
-                    .build();
-        employeeServiceTxn.update(employeeId, inputDto);
+                .builder()
+                .version(currentVersion)
+                .leaveDate(Objects.nonNull(leaveDate) ? leaveDate : LocalDate.now(clock))
+                .build();
+        return employeeServiceTxn.update(employeeId, inputDto);
     }
 
     private void handleExceptionWithOptimisticLock(UUID employeeId, Exception ex) {
