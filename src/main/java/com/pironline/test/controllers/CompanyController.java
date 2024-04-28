@@ -27,7 +27,7 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @GetMapping("/{companyId}")
-    public ResponseEntity<CompanyFullDto> getCompanyById(@PathVariable(name = "companyId", required = true) @NotNull UUID companyId) {
+    public ResponseEntity<CompanyFullDto> getCompany(@PathVariable(name = "companyId", required = true) @NotNull UUID companyId) {
         CompanyFullDto company = companyService.getById(companyId);
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
