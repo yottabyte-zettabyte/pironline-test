@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, UUID> {
 
-    default Company getCompany(UUID companyId) {
-        return findById(companyId)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.ERROR_NOT_FOUND, new Object[] {"Company", companyId.toString()}));
+    default Company get(UUID id) {
+        return findById(id)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.ERROR_NOT_FOUND, new Object[] {"Company", id.toString()}));
     }
 }

@@ -46,8 +46,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         log.error("Error while validating input data: {}", validationErrors);
-        String localizedErrorMessage = messageSource.getMessage(ErrorCode.ERROR_INVALID_DATA.getValue(), new Object[] {validationErrors.toString()});
-        return new ResponseEntity(new ErrorMessage(ErrorCode.ERROR_INVALID_DATA, localizedErrorMessage), HttpStatus.BAD_REQUEST);
+        String errorMsg = messageSource.getMessage(ErrorCode.ERROR_INVALID_DATA.getValue(), new Object[] {validationErrors.toString()});
+        return new ResponseEntity(new ErrorMessage(ErrorCode.ERROR_INVALID_DATA, errorMsg), HttpStatus.BAD_REQUEST);
     }
 
     @Override
@@ -55,7 +55,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                HttpHeaders headers, HttpStatusCode status,
                                                                WebRequest request) {
         log.error("Error while trying to parse input data: ", ex);
-        return this.handleExceptionInternal(ex, "JSON cannot be read", headers, status, request);
+        String errorMsg = messageSource.getMessage(ErrorCode.ERROR_INVALID_DATA.getValue(), new Object[] {ex.getMessage()});
+        return new ResponseEntity(new ErrorMessage(ErrorCode.ERROR_INVALID_DATA, errorMsg), HttpStatus.BAD_REQUEST);
     }
 
     @Override

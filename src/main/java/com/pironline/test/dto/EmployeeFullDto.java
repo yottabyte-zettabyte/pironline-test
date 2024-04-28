@@ -1,6 +1,7 @@
 package com.pironline.test.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -12,7 +13,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CompanyFullDto extends CompanyDto {
+public class EmployeeFullDto extends EmployeeDto {
 
     private UUID id;
 
@@ -22,4 +23,7 @@ public class CompanyFullDto extends CompanyDto {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private TitleDto title;
 }

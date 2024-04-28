@@ -30,7 +30,7 @@ public class CompanyService {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_PARAMS);
         }
 
-        Company company = companyRepository.getCompany(companyId);
+        Company company = companyRepository.get(companyId);
         return companyMapper.entityToFullDto(company);
     }
 
@@ -59,8 +59,8 @@ public class CompanyService {
             companyDto.setId(companyId);
             Company company = companyMapper.fullDtoToEntity(companyDto);
             companyServiceTxn.save(company);
-            
-            company = companyRepository.getCompany(companyId);
+
+            company = companyRepository.get(companyId);
             return companyMapper.entityToFullDto(company);
         }
         catch (final Exception ex) {
