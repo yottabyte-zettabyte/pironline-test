@@ -11,7 +11,6 @@ import com.pironline.test.mappers.EmployeeMapper;
 import com.pironline.test.persistences.Employee;
 import com.pironline.test.repositories.EmployeeRepository;
 import com.pironline.test.service.txn.EmployeeServiceTxn;
-import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -93,27 +92,26 @@ public class EmployeeService {
         }
     }
 
-    public EmployeeFullDto changeTitle(UUID employeeId, long currentVersion, Integer newTitleId,
-                                       LocalDate startDate, LocalDate leaveDate, BigDecimal newSalaryAmount) {
+    public EmployeeFullDto changeTitle(UUID employeeId, EmployeePatchInputDto inputDto) {
         if (employeeId == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_PARAMS);
         }
 
-        if (newTitleId == null) {
+        if (inputDto.getNewTitleId() == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_NAMED_PARAM, new Object[] {"newTitleId"});
 
         }
 
         try {
-            Employee updatedEmployee = processLeaveTransaction(employeeId, currentVersion, leaveDate);
+            Employee updatedEmployee = processLeaveTransaction(employeeId, inputDto.getVersion(), inputDto.getLeaveDate());
 
             EmployeePatchInputDto updateDto = EmployeePatchInputDto
                     .builder()
                     .version(updatedEmployee.getVersion())
-                    .newTitleId(newTitleId)
-                    .startDate(Objects.nonNull(startDate) ? startDate : LocalDate.now(clock))
+                    .newTitleId(inputDto.getNewTitleId())
+                    .startDate(Objects.nonNull(inputDto.getStartDate()) ? inputDto.getStartDate() : LocalDate.now(clock))
                     .leaveDate(LocalDate.MIN)
-                    .salaryAmount(newSalaryAmount)
+                    .salaryAmount(inputDto.getSalaryAmount())
                     .build();
             updatedEmployee = employeeServiceTxn.update(employeeId, updateDto);
             return employeeMapper.entityToFullDto(updatedEmployee);
@@ -124,34 +122,33 @@ public class EmployeeService {
         }
     }
 
-    public EmployeeFullDto changeCompany(UUID employeeId, long currentVersion, UUID newCompanyId, Integer newTitleId,
-                                         LocalDate startDate, LocalDate leaveDate, BigDecimal newSalaryAmount) {
+    public EmployeeFullDto changeCompany(UUID employeeId, EmployeePatchInputDto inputDto) {
         if (employeeId == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_PARAMS);
         }
 
-        if (newCompanyId == null) {
+        if (inputDto.getNewCompanyId() == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_NAMED_PARAM, new Object[] {"newCompanyId"});
 
         }
-        if (newTitleId == null) {
+        if (inputDto.getNewTitleId() == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_NAMED_PARAM, new Object[] {"newTitleId"});
 
         }
 
         try {
-            Employee updatedEmployee = processLeaveTransaction(employeeId, currentVersion, leaveDate);
+            Employee updatedEmployee = processLeaveTransaction(employeeId, inputDto.getVersion(), inputDto.getLeaveDate());
 
-            EmployeePatchInputDto inputDto = EmployeePatchInputDto
+            EmployeePatchInputDto updateDto = EmployeePatchInputDto
                     .builder()
                     .version(updatedEmployee.getVersion())
-                    .newCompanyId(newCompanyId)
-                    .newTitleId(newTitleId)
-                    .startDate(Objects.nonNull(startDate) ? startDate : LocalDate.now(clock))
+                    .newCompanyId(inputDto.getNewCompanyId())
+                    .newTitleId(inputDto.getNewTitleId())
+                    .startDate(Objects.nonNull(inputDto.getStartDate()) ? inputDto.getStartDate() : LocalDate.now(clock))
                     .leaveDate(LocalDate.MIN)
-                    .salaryAmount(newSalaryAmount)
+                    .salaryAmount(inputDto.getSalaryAmount())
                     .build();
-            updatedEmployee = employeeServiceTxn.update(employeeId, inputDto);
+            updatedEmployee = employeeServiceTxn.update(employeeId, updateDto);
             return employeeMapper.entityToFullDto(updatedEmployee);
         }
         catch (final Exception ex) {

@@ -56,27 +56,14 @@ public class EmployeeController {
     @PatchMapping("/{employeeId}/new/title")
     public ResponseEntity<EmployeeFullDto> changeTitle(@PathVariable(name = "employeeId", required = true) @NotNull UUID employeeId,
                                                          @RequestBody @Valid EmployeePatchInputDto requestBody) {
-        EmployeeFullDto employee = employeeService.changeTitle(
-                employeeId,
-                requestBody.getVersion(),
-                requestBody.getNewTitleId(),
-                requestBody.getStartDate(),
-                requestBody.getLeaveDate(),
-                requestBody.getSalaryAmount());
+        EmployeeFullDto employee = employeeService.changeTitle(employeeId, requestBody);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @PatchMapping("/{employeeId}/new/company")
     public ResponseEntity<EmployeeFullDto> changeCompany(@PathVariable(name = "employeeId", required = true) @NotNull UUID employeeId,
                                                          @RequestBody @Valid EmployeePatchInputDto requestBody) {
-        EmployeeFullDto employee = employeeService.changeCompany(
-                employeeId,
-                requestBody.getVersion(),
-                requestBody.getNewCompanyId(),
-                requestBody.getNewTitleId(),
-                requestBody.getStartDate(),
-                requestBody.getLeaveDate(),
-                requestBody.getSalaryAmount());
+        EmployeeFullDto employee = employeeService.changeCompany(employeeId, requestBody);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 }
