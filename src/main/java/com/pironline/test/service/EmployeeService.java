@@ -53,7 +53,6 @@ public class EmployeeService {
         }
 
         try {
-
             Employee employee = employeeMapper.dtoToEntity(employeeDto);
             employee = employeeServiceTxn.save(employee);
             return employeeMapper.entityToFullDto(employee);
