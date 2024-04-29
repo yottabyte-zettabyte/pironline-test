@@ -54,19 +54,20 @@ public class CompanyService {
         if (companyId == null || companyDto == null) {
             throw new BadRequestException(ErrorCode.ERROR_EMPTY_PARAMS);
         }
-
+        
         try {
-            companyDto.setId(companyId);
-            Company company = companyMapper.fullDtoToEntity(companyDto);
-            companyServiceTxn.save(company);
+            companyServiceTxn.update(companyId, companyDto);
 
-            company = companyRepository.get(companyId);
+            Company company = companyRepository.get(companyId);
             return companyMapper.entityToFullDto(company);
         }
         catch (final Exception ex) {
             log.error("Error while updating company with id [{}]: ", companyDto.getId(), ex);
             if (ex instanceof ConcurrencyFailureException) {
                 throw new OptimisticLockException(ErrorCode.ERROR_OPTIMISTIC_LOCK, new Object[] {"Company", companyDto.getId().toString()});
+            }
+            else if (ex instanceof GenericException genericException) {
+                throw genericException;
             }
             throw new GenericException(ErrorCode.ERROR_GENERIC, ex);
         }
