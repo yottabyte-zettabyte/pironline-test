@@ -13,6 +13,4 @@ public interface CompanyMapper {
     CompanyFullDto entityToFullDto(Company entity);
 
     Company dtoToEntity(CompanyDto dto);
-
-    Company fullDtoToEntity(CompanyFullDto dto);
 }
