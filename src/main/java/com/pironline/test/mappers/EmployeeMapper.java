@@ -3,7 +3,7 @@ package com.pironline.test.mappers;
 import com.pironline.test.dto.EmployeeDto;
 import com.pironline.test.dto.EmployeeFullDto;
 import com.pironline.test.persistences.Employee;
-import com.pironline.test.service.TitleService;
+import com.pironline.test.services.TitleService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

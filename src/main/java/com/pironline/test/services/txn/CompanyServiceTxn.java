@@ -1,4 +1,4 @@
-package com.pironline.test.service.txn;
+package com.pironline.test.services.txn;
 
 import com.pironline.test.dto.CompanyFullDto;
 import com.pironline.test.exceptions.OptimisticLockException;

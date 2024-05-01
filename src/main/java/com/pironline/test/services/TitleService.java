@@ -1,4 +1,4 @@
-package com.pironline.test.service;
+package com.pironline.test.services;
 
 import com.pironline.test.dto.TitleDto;
 import com.pironline.test.mappers.TitleMapper;

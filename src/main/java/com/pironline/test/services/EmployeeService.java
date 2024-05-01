@@ -1,4 +1,4 @@
-package com.pironline.test.service;
+package com.pironline.test.services;
 
 import com.pironline.test.dto.EmployeeDto;
 import com.pironline.test.dto.EmployeeFullDto;
@@ -10,7 +10,7 @@ import com.pironline.test.exceptions.handler.ErrorCode;
 import com.pironline.test.mappers.EmployeeMapper;
 import com.pironline.test.persistences.Employee;
 import com.pironline.test.repositories.EmployeeRepository;
-import com.pironline.test.service.txn.EmployeeServiceTxn;
+import com.pironline.test.services.txn.EmployeeServiceTxn;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Objects;

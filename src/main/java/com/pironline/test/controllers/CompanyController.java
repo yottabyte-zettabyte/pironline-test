@@ -2,7 +2,7 @@ package com.pironline.test.controllers;
 
 import com.pironline.test.dto.CompanyDto;
 import com.pironline.test.dto.CompanyFullDto;
-import com.pironline.test.service.CompanyService;
+import com.pironline.test.services.CompanyService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.UUID;

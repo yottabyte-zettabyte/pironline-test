@@ -3,7 +3,7 @@ package com.pironline.test.controllers;
 import com.pironline.test.dto.EmployeeDto;
 import com.pironline.test.dto.EmployeeFullDto;
 import com.pironline.test.dto.EmployeePatchInputDto;
-import com.pironline.test.service.EmployeeService;
+import com.pironline.test.services.EmployeeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import java.util.UUID;

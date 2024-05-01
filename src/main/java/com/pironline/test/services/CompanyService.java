@@ -1,4 +1,4 @@
-package com.pironline.test.service;
+package com.pironline.test.services;
 
 import com.pironline.test.dto.CompanyDto;
 import com.pironline.test.dto.CompanyFullDto;
@@ -9,7 +9,7 @@ import com.pironline.test.exceptions.handler.ErrorCode;
 import com.pironline.test.mappers.CompanyMapper;
 import com.pironline.test.persistences.Company;
 import com.pironline.test.repositories.CompanyRepository;
-import com.pironline.test.service.txn.CompanyServiceTxn;
+import com.pironline.test.services.txn.CompanyServiceTxn;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

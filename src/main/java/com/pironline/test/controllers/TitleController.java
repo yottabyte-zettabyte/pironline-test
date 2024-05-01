@@ -1,7 +1,7 @@
 package com.pironline.test.controllers;
 
 import com.pironline.test.dto.TitleDto;
-import com.pironline.test.service.TitleService;
+import com.pironline.test.services.TitleService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
