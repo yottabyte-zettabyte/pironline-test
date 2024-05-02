@@ -3,9 +3,12 @@ package com.pironline.test.controllers;
 import com.pironline.test.dto.EmployeeDto;
 import com.pironline.test.dto.EmployeeFullDto;
 import com.pironline.test.dto.EmployeePatchInputDto;
+import com.pironline.test.dto.HistoryOutputDto;
 import com.pironline.test.services.EmployeeService;
+import com.pironline.test.services.HistoryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Validated
@@ -26,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+    private final HistoryService historyService;
     private final EmployeeService employeeService;
 
     @GetMapping("/{employeeId}")
@@ -65,5 +70,14 @@ public class EmployeeController {
                                                          @RequestBody @Valid EmployeePatchInputDto requestBody) {
         EmployeeFullDto employee = employeeService.changeCompany(employeeId, requestBody);
         return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+    @GetMapping("/{employeeId}/history")
+    public ResponseEntity<HistoryOutputDto> getHistory(@PathVariable(name = "employeeId", required = true) @NotNull UUID employeeId,
+                                                       @RequestParam(name = "size", required = false) Integer size,
+                                                       @RequestParam(name = "offset", required = false) Integer offset,
+                                                       @RequestParam(name = "sortDirection", required = false, defaultValue = "desc") String sortDirection) {
+        HistoryOutputDto output = historyService.getHistory("employees", List.of(employeeId.toString()), size, offset, sortDirection);
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 }
