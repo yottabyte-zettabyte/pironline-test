@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "2c8c3a71-de34-4097-9de0-84f0b6089440",
+		"name": "Pironline Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32091112"
+	},
+	"item": [
+		{
+			"name": "pironline",
+			"item": [
+				{
+					"name": "create company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shortName\": \"Компания_2\",\r\n    \"longName\": \"ООО \\\"Компания_2\\\"\",\r\n    \"description\": \"Компания ООО \\\"Компания_2\\\"\",\r\n    \"inn\": \"112233445502\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/company",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get company by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/company/76f5b5df-ca1e-4994-b598-3c44a8bce7c9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"company",
+								"76f5b5df-ca1e-4994-b598-3c44a8bce7c9"
+							]
+						},
+						"description": "get company by id"
+					},
+					"response": []
+				},
+				{
+					"name": "update company by id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shortName\": \"Компания_1\",\r\n    \"longName\": \"ООО \\\"Компания_1\\\"\",\r\n    \"description\": \"Копания ООО \\\"Компания_1\\\"\",\r\n    \"inn\": \"11223344558\",\r\n    \"version\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/company/d83cffc8-444b-41d2-8e16-d42a38ef2e50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"company",
+								"d83cffc8-444b-41d2-8e16-d42a38ef2e50"
+							]
+						},
+						"description": "update company by id"
+					},
+					"response": []
+				},
+				{
+					"name": "get list of all titles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/titles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"titles"
+							]
+						},
+						"description": "get list of all titles"
+					},
+					"response": []
+				},
+				{
+					"name": "create employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Иван\",\r\n    \"lastName\": \"Бунша\",\r\n    \"middleName\": \"Васильевич\",\r\n    \"snils\": \"123-456-789 10\",\r\n    \"birthDate\": \"1980-07-01\",\r\n    \"gender\": \"M\",\r\n    \"companyId\": \"b1d4ffe7-14d1-4dc6-84e0-ba5434817d16\",\r\n    \"titleId\": 8,\r\n    \"startDate\": \"2024-04-01\",\r\n    \"salaryAmount\": 300000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/employee",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee"
+							]
+						},
+						"description": "create employee"
+					},
+					"response": []
+				},
+				{
+					"name": "get employee by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/employee/228f2f64-2e5b-41b7-81cb-b86e25519556",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"228f2f64-2e5b-41b7-81cb-b86e25519556"
+							]
+						},
+						"description": "get employee by id"
+					},
+					"response": []
+				},
+				{
+					"name": "delete employee by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/employee/228f2f64-2e5b-41b7-81cb-b86e25519556",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"228f2f64-2e5b-41b7-81cb-b86e25519556"
+							]
+						},
+						"description": "delete employee by id"
+					},
+					"response": []
+				},
+				{
+					"name": "leave employee by id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"version\": 21,\r\n    \"leaveDate\": \"2024-04-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/employee/228f2f64-2e5b-41b7-81cb-b86e25519556/leave",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"228f2f64-2e5b-41b7-81cb-b86e25519556",
+								"leave"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change title of employee by id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"version\": 21,\r\n    \"newTitleId\": 7,\r\n    \"startDate\": \"2024-04-28\",\r\n    \"leaveDate\": \"2024-04-26\",\r\n    \"salaryAmount\": 350000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/employee/228f2f64-2e5b-41b7-81cb-b86e25519556/new/title",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"228f2f64-2e5b-41b7-81cb-b86e25519556",
+								"new",
+								"title"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change company of employee by id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"version\": 21,\r\n    \"newCompanyId\": \"47f854c3-2e93-4b4f-b92f-ca5198ac3dab\",\r\n    \"newTitleId\": 7,\r\n    \"startDate\": \"2024-05-02\",\r\n    \"leaveDate\": \"2024-04-27\",\r\n    \"salaryAmount\": 380000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/employee/228f2f64-2e5b-41b7-81cb-b86e25519556/new/company",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"228f2f64-2e5b-41b7-81cb-b86e25519556",
+								"new",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get debezium connectors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/connectors/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"connectors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create debezium connector",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"test-connector\",\r\n  \"config\": {\r\n    \"connector.class\": \"io.debezium.connector.postgresql.PostgresConnector\",\r\n    \"plugin.name\": \"pgoutput\",\r\n    \"database.hostname\": \"postgres\",\r\n    \"database.port\": \"5432\",\r\n    \"database.user\": \"testadmin\",\r\n    \"database.password\": \"adminpwd\",\r\n    \"database.dbname\" : \"test\",\r\n    \"database.server.name\": \"my_db_server\",\r\n    \"topic.prefix\": \"pironline\",\r\n    \"heartbeat.interval.ms\": \"5000\",\r\n    \"table.include.list\": \"public.companies,public.employees\",\r\n    \"column.exclude.list\": \"public.companies.version,public.companies.created_at,public.companies.updated_at,public.employees.version,public.employees.created_at,public.employees.updated_at\",\r\n    \"publication.name\": \"pironline\",\r\n    \"replica.identity.autoset.values\": \"public.companies:FULL,public.employees:FULL\",\r\n    \"time.precision.mode\": \"connect\",\r\n    \"decimal.handling.mode\": \"double\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/connectors/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"connectors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete debezium connector",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/connectors/test-connector",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"connectors",
+								"test-connector"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get company history logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/company/47f854c3-2e93-4b4f-b92f-ca5198ac3dab/history?size=10&offset=0&sortDirection=desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"company",
+								"47f854c3-2e93-4b4f-b92f-ca5198ac3dab",
+								"history"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sortDirection",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee history logs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/employee/06ccbe63-1448-4d6e-9b9a-a1fcd82f5c55/history?size=10&offset=0&sortDirection=desc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"employee",
+								"06ccbe63-1448-4d6e-9b9a-a1fcd82f5c55",
+								"history"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "sortDirection",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
