@@ -10,7 +10,7 @@ CREATE TABLE public.history_logs (
 
 CREATE TABLE public.history_logs_values (
     id bigserial PRIMARY KEY,
-    parent_log_id bigserial NOT NULL,
+    parent_log_id bigint,
     field_id varchar(64),
     new_value text,
     old_value text,
