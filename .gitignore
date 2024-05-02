@@ -25,3 +25,5 @@ dependency-reduced-pom.xml
 nb-configuration.xml
 nbactions.xml
 faces-config.NavData
+
+src/main/resources/application-local.properties
